@@ -33,6 +33,15 @@ class SettingsControllerTest {
         accountRepository.deleteAll();
     }
 
+    @WithAccount("keesun")
+    @DisplayName("프로필 수정 폼")
+    @Test
+    void updateForm() throws Exception {
+        mockMvc.perform(get(SettingsController.SETTINGS_PROFILE_VIEW_URL))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("profile"));
+    }
 
     @WithAccount("keesun")
     @DisplayName("프로필 수정하기 - 입력값이 정상")

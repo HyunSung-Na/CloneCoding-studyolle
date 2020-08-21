@@ -5,9 +5,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class PasswordFormValidator implements Validator {
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return PasswordForm.class.isAssignableFrom(aClass);
+
+    public boolean supports(Class<?> clazz) {
+        return PasswordForm.class.isAssignableFrom(clazz);
     }
 
     @Override

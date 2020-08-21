@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class SettingsController {
 
-    @InitBinder("PasswordForm")
+    @InitBinder("passwordForm")
     public void initBinder(WebDataBinder webDataBinder) { webDataBinder.addValidators(new PasswordFormValidator());}
 
     private final AccountService accountService;

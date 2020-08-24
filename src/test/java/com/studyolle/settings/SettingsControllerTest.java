@@ -2,7 +2,6 @@ package com.studyolle.settings;
 
 import com.studyolle.WithAccount;
 import com.studyolle.account.AccountRepository;
-import com.studyolle.account.AccountService;
 import com.studyolle.domain.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -78,6 +77,16 @@ class SettingsControllerTest {
         Account keesun = accountRepository.findByNickname("keesun");
         assertNull(keesun.getBio());
 
+    }
+
+    @WithAccount("keesun")
+    @DisplayName("패스워드 수정 폼")
+    @Test
+    void updatePassword_success() throws Exception {
+        mockMvc.perform(get(SettingsController.SETTINGS_PASSWORD_URL))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("passwordForm"));
     }
 
 }

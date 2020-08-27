@@ -1,4 +1,4 @@
-package com.studyolle.settings;
+package com.studyolle.settings.Form;
 
 import lombok.Data;
 

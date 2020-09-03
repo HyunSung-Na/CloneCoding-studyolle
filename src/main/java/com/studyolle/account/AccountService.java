@@ -3,7 +3,6 @@ package com.studyolle.account;
 import com.studyolle.account.Form.SignUpForm;
 import com.studyolle.domain.Account;
 import com.studyolle.domain.Tag;
-import com.studyolle.settings.Form.NicknameForm;
 import com.studyolle.settings.Form.Notifications;
 import com.studyolle.settings.Form.Profile;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,6 @@ public class AccountService implements UserDetailsService {
 
     public Account processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
-        newAccount.generateEmailCheckToken();
         sendSignUpConfirmEmail(newAccount);
         return newAccount;
     }
@@ -53,15 +51,9 @@ public class AccountService implements UserDetailsService {
     }
 
     private Account saveNewAccount(@Valid SignUpForm signUpForm) {
-        Account account = Account.builder()
-                .email(signUpForm.getEmail())
-                .nickname(signUpForm.getNickname())
-                .password(passwordEncoder.encode(signUpForm.getPassword()))
-                .studyCreateWeb(true)
-                .studyEnrollmentResultByWeb(true)
-                .studyUpdateByWeb(true)
-                .build();
-
+        signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
+        Account account = modelMapper.map(signUpForm, Account.class);
+        account.generateEmailCheckToken();
         return accountRepository.save(account);
     }
 

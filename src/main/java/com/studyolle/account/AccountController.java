@@ -80,7 +80,7 @@ public class AccountController {
             return "account/check-email";
         }
 
-        accountService.sendSignUPConfirmEmail(account);
+        accountService.sendSignUpConfirmEmail(account);
         return "redirect:/";
     }
 
